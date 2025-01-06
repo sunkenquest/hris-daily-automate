@@ -33,19 +33,12 @@ driver.get("https://hris.hipe.asia/daily/create")
 
 time.sleep(2) 
 
-dummy_values = {
-    "9": "wasaap 1",
-    "10": "wasapaap 2",
-    "11": "wasasasap 3",
-    "12": "wasapap 4",
-    "13": "wasaaap 5",
-    "14": "wassasasap 6",
-    "15": "wasaaaapa 7",
-    "16": "wasasaaso 8",
-    "17": "wasasaspsap 9"
-}
+with open('data.txt', 'r') as file:
+    lines = file.readlines()
 
-for textarea_id, value in dummy_values.items():
+data_values = {str(i+10 if i > 2 else i+9): line.strip() for i, line in enumerate(lines) if line.strip()}
+
+for textarea_id, value in data_values.items():
     try:
         textarea = driver.find_element(By.ID, textarea_id)
         textarea.clear() 
